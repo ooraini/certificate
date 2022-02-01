@@ -140,4 +140,5 @@
     run_before: "{{ item.run_before | default(omit) }}"
     run_after: "{{ item.run_after | default(omit) }}"
     ca: "{{ item.ca | default(omit) }}"
+    profile: "{{ item.profile | default(omit) }}"
   loop: "{{ certificate_requests }}"

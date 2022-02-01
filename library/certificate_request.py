@@ -160,6 +160,10 @@ options:
     description:
       - Command that should run after saving the certificate.
     required: false
+  profile:
+    description:
+      - The certificate profile. Only used with certmonger.
+    required: false
 
 author:
   - Sergio Oliveira Campos (@seocam)
@@ -359,6 +363,7 @@ class CertificateRequestModule(AnsibleModule):
             wait=dict(type="bool", default=True),
             run_before=dict(type="str"),
             run_after=dict(type="str"),
+            profile=dict(type="str"),
         )
 
     @property

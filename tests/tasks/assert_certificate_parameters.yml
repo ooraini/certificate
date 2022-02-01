@@ -154,3 +154,21 @@
     fail_msg: >-
       {{ cert['auto_renew'] | default('yes') | bool }} !=
       {{ result.stdout | bool }}
+
+- name: Retrieve profile
+  shell: >-
+    set -euo pipefail;
+    getcert list -f {{ cert['path'] }} |
+    grep 'profile' |
+    sed 's/^\s\+profile: //g'
+  register: result
+  changed_when: false
+  when: cert['profile'] is defined
+
+- name: Verify certificate profile
+  assert:
+    that:
+      - cert['profile']  == result.stdout
+    fail_msg: >-
+      {{ cert['profile'] }} != {{ result.stdout }}
+  when: cert['profile'] is defined
